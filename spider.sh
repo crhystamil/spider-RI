@@ -1,4 +1,6 @@
 #!/bin/bash
+
+
 echo -n " Recolector"
 echo -n "0) busqueda de un termino\n"
 echo -n "1) busqueda por profundidad\n"
@@ -11,25 +13,21 @@ case "$valor" in
         read url
         echo "Introduce el nivel de la profundidad (1,2,3,inf)"
         read profundidad
-        wget --spider -b -nv -r $url
-        a=`grep -i "ACABADO" wget-log |awk '{print $1}'`
-        b="ACABADO"
-        flag=true
-        while [ $flag ]
+       # wget --spider -b -nv -r $url
+        estado=`wget --spider -l1 -nv -r -b hiperborea.com.bo|head -n1|awk '{print $6}'|sed 's/\.//g'`
+        while ps -p $estado
         do
-            echo "descargando ...\n"  
-            if [ $a==$b ]
-            then
-                sleep 5 
-                echo "################## Tarea realizada con exito ##################"
-                flag=false
-                break
-            fi
+            echo "Descargando"
+            sleep 5
         done
         echo "################## Descargando URL's ##################"
         `cat wget-log |sed -ne 's/.*\(http[^"]*\).*/\1/p'|awk '{print $1}'> links`
         echo "esto tardara un momento"
-        `wget -nv -O - -i links | html2text |tr ' ' '\n'|sort -u > lista.txt `
+        for link in `cat links`
+        do
+        ` wget -nv -O - $link| html2text -utf8|tr ' ' '\n'|sed -f filtro |tr [:upper:] [:lower:]|sort|uniq -c > terminos.log `
+        echo "##################"
+        done
         echo "#################### indexando URL's ####################"
         
         ;;

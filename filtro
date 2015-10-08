@@ -1,0 +1,16 @@
+s/\xc3\xa1/a/g
+s/\xc3\xa9/e/g
+s/\xc3\xad/i/g
+s/\xc3\xb3/o/g
+s/\xc3\xba/u/g
+s/\xc3\x81/A/g
+s/\xc3\x89/E/g
+s/\xc3\x8d/I/g
+s/\xc3\x93/O/g
+s/\xc3\x9a/U/g
+s/\.//g
+s/\,//g
+s/\#//g
+s/\*//g
+/^$/d
+/[0-9]/d
