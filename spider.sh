@@ -28,7 +28,7 @@ weight_term(){
 }
 
 
-echo -n " Recolector"
+echo -n " Recolector\n"
 echo -n "1) busqueda por profundidad\n"
 echo -n "2) busqeuda \n"
 echo -n "Introduce un valor:  "
@@ -94,7 +94,8 @@ case "$valor" in
 #                        echo $div
 #                        echo "$tf.$df.$num_do.$weight"
 #                        echo $tf.$df.$num_do
-                        total=`python3.4 calc.py $tf $df $num_do`
+                         echo $tf.$df.$num_do $termino
+                         total=`python3.4 calc2.py $tf $df $num_do $termino`
 #                        echo $total
                         echo "INSERT INTO terminos(terminos,cantidad,peso,path) VALUES (\"$termino\",$tf,\"$total\",\"$path\")" | mysql --user='root' --password='asdf999' --database='terminos'
                     fi
